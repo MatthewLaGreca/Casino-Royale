@@ -63,12 +63,41 @@ class Deck():
 # Trips: 3 cards of the same type, with the other two being different from the 3 of the same and each other (AAAKQ)
 # Pair: 2 cards of the same type, with the other three being different from the 2 of the same and each other (AAKQJ)
 # High Card: 5 cards that aren't of the same suit, sequential order and there are no dupes (AKQJ9)
+def valid_wager(wager, table_min, table_max, bet_name):
+    while (wager < table_min) or (wager > table_max):
+        if wager < table_min:
+            print('You can not bet less than the table minimum of $', table_min, sep='')
+            wager = int(input(f"How much would you like to put on the {bet_name}? ${table_min} to ${table_max}: "))
+        elif wager > table_max:
+            print('You can not bet more than the table maximum of $', table_max, sep='')
+            wager = int(input(f"How much would you like to put on the {bet_name}? ${table_min} to ${table_max}: "))
+    return wager
 
 
 #The portion of the program that is Ultimate Texas Hold Em     
-def uth():
+def uth(table_min):
+
+    #Only want to display this message if changing from another casino game to UTH, or starting up playing UTH
+    # if not player.currently_playing:
+    #     print('You approach a table of familiar faces, only to be greeted with a table minimum of $', table_min, ' and a table max of $100\n')
+    #     print('Debbie: "Hey there, hun!  Stay a while and make your self comfortable!"')
+    wager = int(input(f"How much would you like to put on the Ante? ${table_min} to $100: "))
+    confirmed_wager = valid_wager(wager, table_min, 100, 'Ante')
+    # while (wager < table_min) or (wager > 100):
+    #     if wager < table_min:
+    #         print('You can not bet less than the table minimum of $', table_min)
+    #         wager = int(input(f"How much would you like to put on the Ante? ${table_min} to $100: "))
+    #     elif wager > 100:
+    #         print ('You can not bet more than the table maximum of $100')
+    #         wager = int(input(f"How much would you like to put on the Ante? ${table_min} to $100: "))
+    print("You put $", confirmed_wager, " on the Ante and the Blind, placing a total wager of $", 2*confirmed_wager, sep='')
+    playing_trips = input("Would you like to play trips? (Yes/No): ")
+    if playing_trips:
+        trips_wager = int(input(f"How much would you like to put on the Trips? $5 to $100 (must be increments of $5): "))
+    
 
 
+uth(15)
 # print('This is a test')
 # deck = Deck()
 # card = deck.cards.pop()
